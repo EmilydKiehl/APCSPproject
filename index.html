@@ -1,46 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
   <head>
     <meta charset=utf-8 />
-
-    <title>Draw squares</title>
-
+    <title>Draw Squares</title>
   </head>
 
   <body>
+    <button onclick="drawCanvas()">Change the scene</button>
 
-    <button onclick="drawSquares()">Change the scene</button>
+    <canvas id="background" width="2000" height="1200">
+      This Browser Won't Show This...!!!
+    </canvas>
 
     <script>
-      function drawSquares() {
-        var canvas = document.createElement('canvas');
-        canvas.id = "CursorLayer";
-        canvas.width = 2000;
-        canvas.height = 1200;
-        canvas.style.zIndex = 8;
-        canvas.style.position = "absolute";
-        var body = document.getElementsByTagName("body")[0];
-        body.appendChild(canvas);
-        cursorLayer = document.getElementById("CursorLayer");
-        console.log(cursorLayer);
-        fillCanvas(randomNumber(100));
-      }
-
-      function fillCanvas(numSquares) {
-        var i = 0;
-        for (i = 0; i < numSquares; i++) {
-          ctx.fillStyle = "rgba(randomNumber(255), randomNumber(255), randomNumber(255), .5)";
-          ctx.fillRect(randomNumber(150), randomNumber(150), randomNumber(150), randomNumber(150));
-        }
-      }
-
       function randomNumber(max) {
         return Math.floor(Math.random() * Math.floor(max));
       }
 
+      function drawCanvas() {
+        var canvas = document.getElementById("background"),
+          c = canvas.getContext("2d");
+          drawSquares();
+
+        function drawSquares() {
+
+          c.fillStyle = "white";
+          c.fillRect(0, 0, canvas.width, canvas.height);
+
+          for (var i = 0; i < 250; i++) {
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height;
+
+            var colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "black"];
+
+            c.fillStyle = colors[randomNumber(7)];
+            c.fillRect(x, y, randomNumber(100), randomNumber(100));
+          }
+        }
+      };
+
     </script>
-
-  </body>
-
-</html>
