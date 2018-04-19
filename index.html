@@ -3,7 +3,9 @@
 
   <head>
     <meta charset=utf-8 />
+
     <title>Draw squares</title>
+
   </head>
 
   <body>
@@ -22,21 +24,20 @@
         body.appendChild(canvas);
         cursorLayer = document.getElementById("CursorLayer");
         console.log(cursorLayer);
-        fillCanvas(Math.random());
-              }
-        
-              function fillCanvas(numSquares) {
+        fillCanvas(randomNumber(100));
+      }
+
+      function fillCanvas(numSquares) {
         var i = 0;
         for (i = 0; i < numSquares; i++) {
-          ctx.fillStyle = "rgba(generateFillStyle())";
-          ctx.fillRect(generateFillRect());
+          ctx.fillStyle = "rgba(randomNumber(255), randomNumber(255), randomNumber(255), .5)";
+          ctx.fillRect(randomNumber(150), randomNumber(150), randomNumber(150), randomNumber(150));
         }
-              }
-        
-function randomNumber(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+      }
 
+      function randomNumber(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
 
     </script>
 
