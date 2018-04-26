@@ -7,7 +7,9 @@
   </head>
 
   <body>
+  <img src="puppy.jpg" id="puppy" width="32" height="32">
     <button onclick="drawCanvas()">Change the scene</button>
+    <button onclick="addPicture()">Add a picture</button>
 
     <canvas id="background" width="2000" height="1200">
       This Browser Won't Show This...!!!
@@ -22,6 +24,7 @@
         var canvas = document.getElementById("background"),
           c = canvas.getContext("2d");
           drawSquares();
+				
 
         function drawSquares() {
 
@@ -39,5 +42,18 @@
           }
         }
       };
+      
+      function addPicture(){
+      	var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        var img=document.getElementById("lamp");
+        var pat=ctx.createPattern(img,"repeat");
+        ctx.rect(0,0,2000,1200);
+        ctx.fillStyle=pat;
+        ctx.fill();
+      }
+      
 
     </script>
+    </body>
+    </html>
