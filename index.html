@@ -6,18 +6,24 @@
     <meta charset=utf-8 />
     <title>Draw Squares</title>
   </head>
-	
+
   <style>
-    #animate { position: relative; border: 1px solid green; background: blue; width: 100px; height: 100px;}
+    #animate {
+      position: relative;
+      border: 10px solid green;
+      background: blue;
+      width: 70px;
+      height: 70px;
+    }
+
   </style>
 
   <body>
-  
-    <div id="animate">Hello</div>
-    <button id = "changeScene" onclick="drawCanvas()">Change the scene</button>
-    <button id = "addPic" onclick="addPicture()">Add a picture</button>
 
-    <canvas id="background" width="2000" height="1200">
+
+    <button id="changeScene" onclick="drawCanvas()">Change the scene</button>
+
+    <canvas id="background" width="1000" height="800">
       This Browser Won't Show This...!!!
     </canvas>
 
@@ -26,112 +32,134 @@
         return Math.floor(Math.random() * Math.floor(max));
       }
 
+      var canvas;
+      var c;
+
       function drawCanvas() {
-        var canvas = document.getElementById("background"),
-          c = canvas.getContext("2d");
-          drawSquares();
-				
+        canvas = document.getElementById("background");
+          
+        c = canvas.getContext("2d");
+        
+        drawSquares();
 
         function drawSquares() {
-
           c.fillStyle = "white";
           c.fillRect(0, 0, canvas.width, canvas.height);
-
           for (var i = 0; i < 250; i++) {
             var x = Math.random() * canvas.width;
             var y = Math.random() * canvas.height;
-
             var colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "black"];
-
             c.fillStyle = colors[randomNumber(7)];
             c.fillRect(x, y, randomNumber(200), randomNumber(200));
           }
         }
       };
-	    
-	    
-var circleObject;
 
-function startGame() {
-    circleObject = new component(30, 30, "red", 10, 120);
-    newCanvas().start();
-}
+			class Component {
+      	constructor(width, height, color, x, y) {
+        	this.width = width;
+          this.height = height;
+          this.speedX = 0;
+          this.speedY = 0;
+          this.x = x;
+          this.y = y;
+          this.color = color;
+        }
+        
+        reDraw() {
+          c.fillStyle = this.color;
+          c.fillRect(this.x, this.y, this.width, this.height);
+        }
+        
+        updatePos() {
 
-var newCanvas() = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-        this.canvas.width = 2000;
-        this.canvas.height = 1200;
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20);
-    },
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-}
+            const speed = 5;
+        
+        	if (movingLeft) {
+          	this.x -= speed;
+          }
+          
+          if (movingRight) {
+          	this.x += speed;
+          }
+          
+          if (movingUp) {
+          	this.y -= speed;
+          }
+          
+          if (movingDown) {
+          	this.y += speed;
+          }
+        }
+      }
 
-function component(width, height, color, x, y) {
-    this.width = width;
-    this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.x = x;
-    this.y = y;    
-    this.update = function() {
-        ctx = newCanvas().context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-    this.newPos = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;        
-    }    
-}
+      function updateAndDraw() {
+        	// Clear
+          console.log('Drawing');
+          
+          c.fillStyle = "white";
+          c.fillRect(this.x, this.y, this.width, this.height);
+          
+          object.updatePos();
+          object.reDraw();
+        }
 
-function updatePosition() {
-    newCanvas().clear();
-    circleObject.newPos();    
-    circleObject.update();
-}
 
-function moveup() {
-    circleObject.speedY = -1; 
-}
+      var object;
+      
+      var movingRight = false;
+      var movingLeft = false;
+      var movingUp = false;
+      var movingDown = false;
 
-function movedown() {
-    circelObject.speedY = 1; 
-}
+      function startGame() {
+        drawCanvas();
 
-function moveleft() {
-    circleObject.speedX = -1; 
-}
 
-function moveright() {
-    circleObject.speedX = 1; 
-}
-	  
-document.onkeydown = function(e) {
-    switch (e.keyCode) {
-        case 37:
-            alert('left');
-		    moveLeft();
+        object = new Component(30, 30, "black", 10, 120);
+        
+        setInterval(updateAndDraw, 100);
+      }
+
+     
+      document.onkeydown = function(e) {
+        switch (e.keyCode) {
+          case 37:
+            movingLeft = true;
             break;
-        case 38:
-            alert('up');
-		    moveUp();
+          case 38:
+            movingUp = true;
             break;
-        case 39:
-            alert('right');
-		    moveRight();
+          case 39:
+            movingRight = true;
             break;
-        case 40:
-            alert('down');
-		    moveDown();
+          case 40:
+            movingDown = true;
             break;
-    }
-};
+        }
+      };
+      
+      document.onkeyup = function(e) {
+        switch (e.keyCode) {
+          case 37:
+            movingLeft = false;
+            break;
+          case 38:
+            movingUp = false;
+            break;
+          case 39:
+            movingRight = false;
+            break;
+          case 40:
+            movingDown = false;
+            break;
+        }
+      };
+
+      // Start the game
+      startGame();
 
     </script>
-    </body>
-    </html>
+  </body>
+
+</html>
