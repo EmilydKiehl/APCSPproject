@@ -14,8 +14,8 @@
   <body>
   
     <div id="animate">Hello</div>
-    <button onclick="drawCanvas()">Change the scene</button>
-    <button onclick="addPicture()">Add a picture</button>
+    <button id = "changeScene" onclick="drawCanvas()">Change the scene</button>
+    <button id = "addPic" onclick="addPicture()">Add a picture</button>
 
     <canvas id="background" width="2000" height="1200">
       This Browser Won't Show This...!!!
@@ -50,28 +50,15 @@
       };
       
       function addPicture(){
-	      $(document).ready(function(e) {
-        var width = $(document).width();
+	var x = event.mouse;
+	if (x == "addPic" || x == "changeScene") { 
+        alert ("You pressed a button!");
+		
+	var y = event.key;
+	if (y == "w" || y == "W") { 
+        alert ("You pressed the up button");
+}
 
-        function goRight() {
-            $("#animate").animate({
-            left: width
-          }, 5000, function() {
-             setTimeout(goLeft, 50);
-          });
-        }
-        function goLeft() {
-            $("#animate").animate({
-            left: 0
-          }, 5000, function() {
-             setTimeout(goRight, 50);
-          });
-        }
-
-        setTimeout(goRight, 50);
-    });
-
-      }
 
       
 
